@@ -1,7 +1,7 @@
 // YOUR CODE HERE:
 var app = {
   server: 'http://parse.sfs.hackreactor.com/chatterbox/classes/messages',
-  messages: {}
+  messages: []
 };
 app.init = function () {
  
@@ -10,7 +10,7 @@ app.init = function () {
 
 app.send = function (message) {
   $.ajax({
-    url: app.server,
+    url: 'http://parse.sfs.hackreactor.com/chatterbox/classes/messages',
     type: 'POST',
     data: message,
     contentType: 'application/json',
@@ -26,7 +26,7 @@ app.send = function (message) {
 
 app.fetch = function () {
   $.ajax({
-    url: app.server,
+    url: 'http://parse.sfs.hackreactor.com/chatterbox/classes/messages',
     type: 'GET',
     success: function (data) {
       console.log('chatterbox: Message received');
@@ -37,11 +37,11 @@ app.fetch = function () {
   });
 };
 app.clearMessages = function () {
-  
-  
+  $('#chats').children().remove();
 };
-app.renderMessage = function () {
-  
+app.renderMessage = function (message) {
+  $('#chats').append('<p>' + message.text + '</p>');
+
 };
 app.renderRoom = function () {
   
@@ -52,4 +52,5 @@ app.handleUserNameClick = function () {
 app.handleSubmit = function () {
   
 };
-
+app.send();
+app.fetch();

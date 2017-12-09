@@ -1,4 +1,7 @@
 // YOUR CODE HERE:
+$('document').ready(function() {
+  console.log('doc is readyyyy');
+});
 var app = {
   server: 'http://parse.sfs.hackreactor.com/chatterbox/classes/messages',
   messages: [],
@@ -18,6 +21,7 @@ app.send = function (message) {
     contentType: 'application/json',
     datatype: 'JSON',
     success: function (data) {
+      console.log(data);
       console.log('chatterbox: Message sent');
     },
     error: function (data) {

@@ -5,7 +5,7 @@
     <title>chatterbox</title>
     <link rel="stylesheet" href="styles/styles.css">
 
-    <!-- dependencies -->
+   <!-- dependencies -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/underscore/underscore.js"></script>
     <script>
@@ -24,11 +24,31 @@
     <script src="scripts/app.js"></script>
   </head>
   <body>
-    <div id="rooms"></div>
-    <div id="main">
-      <h1>chatterbox</h1> 
+   <div id="sidebar">
+   <div class="dropdown">
+  <button class="dropbtn">Rooms</button>
+  <div class="dropdown-content">
+    <a href="#">Room 1</a>
+    <a href="#">Room 2</a>
+    <a href="#">Room 3</a>
+  </div>
+</div>
+  <div class= "chat.username" type="text">
+  </div>
+  </div>
+        <div id="main">
+      <h1>Chatterbox</h1>
+  <div id="send">
+        <input id="user" type="text" placeholder="Enter username">
+        <input id="room" type="text" placeholder="Enter room">
+        <input id="message" type="text" placeholder="Enter message here"></input>
+        <div id="sendButton" class="submit button">Send message</div>
+      </div>
+  </div>
+  <div id='chats'>
+  <button class="latest-messages">View all messages</button>
+  <div class="chat">
       <!-- Your HTML goes here! -->
     </div>
-    <div id="chats"></div>
   </body>
 </html>

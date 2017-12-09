@@ -4,14 +4,18 @@ $('document').ready(function() {
 });
 var app = {
   server: 'http://parse.sfs.hackreactor.com/chatterbox/classes/messages',
-  messages: [],
+  messages: {},
+  storage: [],
   username: ''
 };
 app.init = function () {
   app.handleUsernameClick();
   app.handleSubmit();
+  $('#sendButton').on('click', function () {
+    console.log('message', message);
+    app.send(message);
+  });
 };
-
 
 app.send = function (message) {
   $.ajax({
@@ -21,8 +25,8 @@ app.send = function (message) {
     contentType: 'application/json',
     datatype: 'JSON',
     success: function (data) {
-      console.log(data);
       console.log('chatterbox: Message sent');
+      // app.renderMessage(data);
     },
     error: function (data) {
       console.error('chatterbox: Failed to send message', data);
@@ -36,17 +40,26 @@ app.fetch = function () {
     type: 'GET',
     success: function (data) {
       console.log('chatterbox: Message received');
+      app.renderMessage(data);
+     
+      
     },
     error: function (data) {
       console.error('chatterbox: Failed to receive message', data);
     }
   });
+
 };
 app.clearMessages = function () {
   $('#chats').children().remove();
 };
-app.renderMessage = function (message) {
-  $('#chats').append('<p>' + message.text + '</p>');
+app.renderMessage = function (data) {
+  for (var i = 0; i < data.results.length; i++) {
+    // app.messages[data.results[i].username] = data.results[i].username;
+    // console.log(data.results[i].username);
+    $('#chats').append('<p>' + data.results[i].username + ' ' + data.results[i].text + ' ' + data.results[i].roomname + ' ' + data.results[i].createdAt + '</p>');  
+  }
+  
 
 };
 app.renderRoom = function (room) {

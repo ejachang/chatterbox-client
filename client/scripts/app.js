@@ -1,7 +1,5 @@
 // YOUR CODE HERE:
-$('document').ready(function() {
-  console.log('doc is readyyyy');
-});
+
 var app = {
   server: 'http://parse.sfs.hackreactor.com/chatterbox/classes/messages',
   messages: {},
@@ -20,7 +18,7 @@ app.send = function (message) {
   $.ajax({
     url: 'http://parse.sfs.hackreactor.com/chatterbox/classes/messages',
     type: 'POST',
-    data: message,
+    data: JSON.stringify(message),
     contentType: 'application/json',
     datatype: 'JSON',
     success: function (data) {
@@ -39,8 +37,7 @@ app.fetch = function () {
     data: {'order': '-createdAt'},
     success: function (data) {
       console.log('chatterbox: Message received');
-      app.renderMessage(data);
-      // console.log('fetch', data);
+      app.renderMessage(data);      
     },
     error: function (data) {
       console.error('chatterbox: Failed to receive message', data);
@@ -52,11 +49,11 @@ app.clearMessages = function () {
   $('#chats').children().remove();
 };
 app.renderMessage = function (data) {
-  app.messages.username = [];
+  // app.messages.username = [];
   for (var i = 0; i < data.results.length; i++) {
     if (data.results[i].username !== undefined) {
       $('#chats').append('<p>' + data.results[i].username + ' ' + data.results[i].text + ' ' + data.results[i].roomname + ' ' + data.results[i].createdAt + '</p>');  
-      app.messages.username.push(data.results[i].username);
+      // app.messages.username.push(data.results[i].username);
     }
   }
 };
@@ -70,18 +67,25 @@ app.handleUsernameClick = function () {
   });
 };
 app.handleSubmit = function (message) {
-  app.messages.submittedMessage = [];
-  $('.submit-button').on('click', function () {
-    app.messages.submittedMessage.push(message);
-    app.send(app.messages.submittedMessage);
-  });
 };
 
-app.send(app.messages.ex);
+app.send();
 
 app.fetch();
 app.init();
 
-
-
+$('document').ready(function() {
+  $('.submitbutton').on('click', function () {
+    var messageObj = {
+      username: $('#user').val(),
+      text: $('#message').val(),
+      roomname: $('#room').val(),
+    };
+    messageObj = messageObj;
+    app.send(messageObj);
+    app.clearMessages();
+    app.fetch();
+  });
+  
+});
 

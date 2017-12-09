@@ -3,6 +3,7 @@ body {
     text-align: center;
     padding: 0 25px;
     font-family: arial, sans-serif;
+    color: black;
 }
 
 #main, #chats {
@@ -163,7 +164,7 @@ width:10%;
     padding: 10px;
 }
 
-.submit-button {
+.submitbutton {
   background-color: #00CCFF;
   padding: 4px;
   width: 150px;
@@ -174,7 +175,10 @@ width:10%;
   border-radius: 2px;
   box-shadow: 2px 3px 5px #888888;
 }
-
+.submitbutton:hover {
+  background-color: grey;
+  cursor: pointer;
+}
 .latest-messages {
     display: block;
     margin: 0 auto;

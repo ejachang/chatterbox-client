@@ -11,10 +11,9 @@ var app = {
 app.init = function () {
   app.handleUsernameClick();
   app.handleSubmit();
-  $('#sendButton').on('click', function () {
-    console.log('message', message);
-    app.send(message);
-  });
+  // $('.send-button').on('click', function () {
+  //   app.send(message);
+  // });
 };
 
 app.send = function (message) {
@@ -26,7 +25,6 @@ app.send = function (message) {
     datatype: 'JSON',
     success: function (data) {
       console.log('chatterbox: Message sent');
-      // app.renderMessage(data);
     },
     error: function (data) {
       console.error('chatterbox: Failed to send message', data);
@@ -38,11 +36,11 @@ app.fetch = function () {
   $.ajax({
     url: 'http://parse.sfs.hackreactor.com/chatterbox/classes/messages',
     type: 'GET',
+    data: {'order': '-createdAt'},
     success: function (data) {
       console.log('chatterbox: Message received');
       app.renderMessage(data);
-     
-      
+      // console.log('fetch', data);
     },
     error: function (data) {
       console.error('chatterbox: Failed to receive message', data);
@@ -54,14 +52,15 @@ app.clearMessages = function () {
   $('#chats').children().remove();
 };
 app.renderMessage = function (data) {
+  app.messages.username = [];
   for (var i = 0; i < data.results.length; i++) {
-    // app.messages[data.results[i].username] = data.results[i].username;
-    // console.log(data.results[i].username);
-    $('#chats').append('<p>' + data.results[i].username + ' ' + data.results[i].text + ' ' + data.results[i].roomname + ' ' + data.results[i].createdAt + '</p>');  
+    if (data.results[i].username !== undefined) {
+      $('#chats').append('<p>' + data.results[i].username + ' ' + data.results[i].text + ' ' + data.results[i].roomname + ' ' + data.results[i].createdAt + '</p>');  
+      app.messages.username.push(data.results[i].username);
+    }
   }
-  
-
 };
+
 app.renderRoom = function (room) {
   $('#roomSelect').append('<p>' + room.text + '</p>');
 };
@@ -71,11 +70,15 @@ app.handleUsernameClick = function () {
   });
 };
 app.handleSubmit = function (message) {
-  $('#submit').on('click', function () {
-    app.send(message);
+  app.messages.submittedMessage = [];
+  $('.submit-button').on('click', function () {
+    app.messages.submittedMessage.push(message);
+    app.send(app.messages.submittedMessage);
   });
 };
-app.send();
+
+app.send(app.messages.ex);
+
 app.fetch();
 app.init();
 

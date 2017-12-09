@@ -58,7 +58,9 @@ form input[type=text] {
     font-size: 12px;
     padding: 5px;
 }
-
+.room{
+    font-size: 12px;
+}
 .chat {
     padding: 5px;
     margin-bottom: 5px;

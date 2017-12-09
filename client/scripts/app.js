@@ -1,10 +1,12 @@
 // YOUR CODE HERE:
 var app = {
   server: 'http://parse.sfs.hackreactor.com/chatterbox/classes/messages',
-  messages: []
+  messages: [],
+  username: ''
 };
 app.init = function () {
- 
+  app.handleUsernameClick();
+  app.handleSubmit();
 };
 
 
@@ -43,14 +45,23 @@ app.renderMessage = function (message) {
   $('#chats').append('<p>' + message.text + '</p>');
 
 };
-app.renderRoom = function () {
-  
+app.renderRoom = function (room) {
+  $('#roomSelect').append('<p>' + room.text + '</p>');
 };
-app.handleUserNameClick = function () {
-  
+app.handleUsernameClick = function () {
+  $('.username').on('click', function () {
+    $('#main').append('.username');
+  });
 };
-app.handleSubmit = function () {
-  
+app.handleSubmit = function (message) {
+  $('#submit').on('click', function () {
+    app.send(message);
+  });
 };
 app.send();
 app.fetch();
+app.init();
+
+
+
+

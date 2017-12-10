@@ -3,7 +3,7 @@
 var app = {
   server: 'http://parse.sfs.hackreactor.com/chatterbox/classes/messages',
   messages: {},
-  storage: [],
+  friends: [],
   username: ''
 };
 app.init = function () {
@@ -45,13 +45,31 @@ app.fetch = function () {
   });
 
 };
+
+app.sendFriends = function (message) {
+  $.ajax({
+    url: 'http://parse.sfs.hackreactor.com/chatterbox/classes/messages',
+    type: 'POST',
+    data: JSON.stringify(message),
+    contentType: 'application/json',
+    datatype: 'JSON',
+    success: function (data) {
+      console.log('chatterbox: Friends list posted');
+    },
+    error: function (data) {
+      console.error('chatterbox: Failed to post friends list', data);
+    }
+  });
+};
+
 app.clearMessages = function () {
   $('#chats').children().remove();
 };
 app.renderMessage = function (data) {
   for (var i = 0; i < data.results.length; i++) {
     if (data.results[i].username !== undefined) {
-      $('#chats').append('<p>' + data.results[i].username + ' ' + data.results[i].text + ' ' + data.results[i].roomname + ' ' + data.results[i].createdAt.slice(11, 19) + '</p>');  
+      $('#chats').append('<p>' + '<span class = "userstyle">' + data.results[i].username + '</span>' + ' ' + data.results[i].text + ' ' + data.results[i].roomname + ' ' + data.results[i].createdAt.slice(11, 19) + '</p>');  
+      
     }
   }
 };
@@ -60,15 +78,16 @@ app.renderRoom = function (room) {
   $('#roomSelect').append('<p>' + room.text + '</p>');
 };
 app.handleUsernameClick = function () {
-  $('.username').on('click', function () {
-    $('#main').append('.username');
+  $('.userstyle').on('click', function () {
+    app.friends.push($('.userstyle').val());
+    console.log(app.friends);
   });
 };
 app.handleSubmit = function (message) {
 };
 
 app.send();
-
+app.sendFriends();
 app.fetch();
 app.init();
 

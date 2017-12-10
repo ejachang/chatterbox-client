@@ -4,7 +4,11 @@ body {
     padding: 0 25px;
     font-family: arial, sans-serif;
     color: black;
+    background-color:#b2b2b2;
 }
+
+    
+
 
 #main, #chats {
     width: 500px;
@@ -15,6 +19,7 @@ body {
     border: solid #ddd;
     border-width: 0 1px 1px 1px;
 }
+
 .dropbtn {
     background-color: black;
     color: white;
@@ -142,10 +147,14 @@ li a {
     font-weight: 800;
 }
 
-.user {
+.userstyle {
     color: blue;    
+    text-decoration: underline;
 }
-
+.userstyle:hover{
+    background-color: grey;
+    cursor: pointer;
+}
 .chat:hover {
     /*background-color: #ddd;*/
 }

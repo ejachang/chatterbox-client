@@ -132,18 +132,22 @@ li a {
 }
 
 .chat {
-    padding: 5px;
-    margin-bottom: 5px;
-    background-color: #eee;
-    height: 15px;
+   /* padding: 5px;
+    margin-bottom: 5px;*/
+    /*background-color: #eee;*/
+    /*height: 15px;*/
 }
 
 .chat .username {
     font-weight: 800;
 }
 
+.user {
+    color: blue;    
+}
+
 .chat:hover {
-    background-color: #ddd;
+    /*background-color: #ddd;*/
 }
 #sidebar {
 

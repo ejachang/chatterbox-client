@@ -49,11 +49,9 @@ app.clearMessages = function () {
   $('#chats').children().remove();
 };
 app.renderMessage = function (data) {
-  // app.messages.username = [];
   for (var i = 0; i < data.results.length; i++) {
     if (data.results[i].username !== undefined) {
-      $('#chats').append('<p>' + data.results[i].username + ' ' + data.results[i].text + ' ' + data.results[i].roomname + ' ' + data.results[i].createdAt + '</p>');  
-      // app.messages.username.push(data.results[i].username);
+      $('#chats').append('<p>' + data.results[i].username + ' ' + data.results[i].text + ' ' + data.results[i].roomname + ' ' + data.results[i].createdAt.slice(11, 19) + '</p>');  
     }
   }
 };
@@ -86,6 +84,10 @@ $('document').ready(function() {
     app.clearMessages();
     app.fetch();
   });
-  
+
+  $('.latest-messages').on('click', function () {
+    app.clearMessages();
+    app.fetch();
+  });
 });
 
